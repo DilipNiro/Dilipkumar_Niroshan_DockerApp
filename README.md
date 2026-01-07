@@ -78,8 +78,8 @@ git --version
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/VOTRE_USERNAME/VOTRE_REPO.git
-cd VOTRE_REPO
+git clone https://github.com/DilipNiro/Dilipkumar_Niroshan_DockerApp.git
+cd Dilipkumar_Niroshan_DockerApp
 ```
 
 ### 2. Créer le fichier d'environnement (Optionnel mais recommandé)
