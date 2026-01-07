@@ -19,9 +19,12 @@ Application web full-stack pour la gestion d'un catalogue de films avec système
 - [Architecture](#-architecture)
 - [Services](#-services)
 - [Sécurité](#-sécurité)
+- [Sauvegarde et Restauration](#-sauvegarde-et-restauration)
 - [Dépannage](#-dépannage)
-- [Contribution](#-contribution)
-- [Licence](#-licence)
+- [Choix techniques](#-choix-techniques)
+- [Tests](#-tests)
+- [Notes de développement](#-notes-de-développement)
+- [Auteur](#-auteur)
 
 ## 🎯 À propos
 
