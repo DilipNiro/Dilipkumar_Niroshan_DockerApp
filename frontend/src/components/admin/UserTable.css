@@ -1,0 +1,140 @@
+.user-table-wrapper {
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.user-table__th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #2d3748;
+  border-bottom: 2px solid #e2e8f0;
+  background: #f7fafc;
+}
+
+.user-table__th--sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.user-table__th--sortable:hover {
+  background: #edf2f7;
+}
+
+.user-table__th--actions {
+  text-align: center;
+  width: 120px;
+}
+
+.user-table__row {
+  transition: background 0.2s ease;
+}
+
+.user-table__row:hover {
+  background: #f7fafc;
+}
+
+.user-table__row:nth-child(even) {
+  background: #fafafa;
+}
+
+.user-table__row:nth-child(even):hover {
+  background: #f0f0f0;
+}
+
+.user-table__td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #4a5568;
+}
+
+.user-table__td--name {
+  font-weight: 500;
+}
+
+.user-table__td--email {
+  color: #667eea;
+}
+
+.user-table__td--actions {
+  text-align: center;
+}
+
+.user-table__badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-table__badge--admin {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.user-table__badge--user {
+  background: #bee3f8;
+  color: #2c5282;
+}
+
+.user-table__button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 8px;
+  margin: 0 4px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.user-table__button:hover {
+  background: #e2e8f0;
+}
+
+.user-table__button--edit:hover {
+  background: #feebc8;
+}
+
+.user-table__button--delete:hover {
+  background: #fed7d7;
+}
+
+.user-table__loading,
+.user-table__empty {
+  padding: 48px;
+  text-align: center;
+  color: #718096;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .user-table {
+    font-size: 0.85rem;
+  }
+
+  .user-table__th,
+  .user-table__td {
+    padding: 12px 8px;
+  }
+
+  .user-table__badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+}
+

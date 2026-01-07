@@ -1,0 +1,124 @@
+.admin-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.admin-page__header {
+  margin-bottom: 32px;
+}
+
+.admin-page__title {
+  margin: 0 0 24px 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.admin-page__tabs {
+  display: flex;
+  gap: 8px;
+  background: white;
+  padding: 4px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+}
+
+.admin-page__tab {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #4a5568;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-page__tab:hover {
+  background: #f7fafc;
+}
+
+.admin-page__tab--active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.admin-page__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.admin-page__movies {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-page__movies-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.admin-page__section-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+.admin-page__create-button {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.admin-page__create-button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.admin-page__form-section {
+  margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 16px;
+  }
+
+  .admin-page__title {
+    font-size: 2rem;
+  }
+
+  .admin-page__movies {
+    padding: 16px;
+  }
+
+  .admin-page__movies-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .admin-page__create-button {
+    width: 100%;
+  }
+}
+

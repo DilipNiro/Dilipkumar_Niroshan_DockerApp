@@ -1,0 +1,60 @@
+.error-message {
+  background: #fee;
+  border: 1px solid #fcc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.error-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.error-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.error-text {
+  margin: 0;
+  color: #c33;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.error-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s;
+}
+
+.btn-close:hover {
+  color: #333;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 14px;
+}

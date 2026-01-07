@@ -1,0 +1,98 @@
+// Ceci est votre fichier de schéma Prisma,
+// en savoir plus dans la documentation : https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum WatchlistStatus {
+  WATCHLIST   // À voir
+  WATCHING    // En cours
+  COMPLETED   // Terminé
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String
+  role      UserRole @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  watchlist WatchlistItem[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model Genre {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  movies MovieGenre[]
+
+  @@index([name])
+}
+
+model Movie {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  year        Int
+  image       String?
+  duration    Int      // Durée en minutes
+  director    String
+  rating      Float    // Note du film (ex: 7.5/10)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  watchlistItems WatchlistItem[]
+  genres         MovieGenre[]
+
+  @@index([title])
+  @@index([year])
+}
+
+model MovieGenre {
+  id        Int      @id @default(autoincrement())
+  movieId   Int
+  genreId   Int
+  createdAt DateTime @default(now())
+
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  genre Genre @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@unique([movieId, genreId])
+  @@index([movieId])
+  @@index([genreId])
+}
+
+model WatchlistItem {
+  id        Int             @id @default(autoincrement())
+  userId    Int
+  movieId   Int
+  status    WatchlistStatus @default(WATCHLIST)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, movieId])
+  @@index([userId])
+  @@index([movieId])
+  @@index([status])
+}

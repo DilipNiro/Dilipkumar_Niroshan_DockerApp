@@ -1,0 +1,51 @@
+.home-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.home-page__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.home-page__title {
+  margin: 0 0 8px 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.home-page__subtitle {
+  margin: 0;
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.home-page__filters {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    padding: 16px;
+  }
+
+  .home-page__title {
+    font-size: 2rem;
+  }
+
+  .home-page__subtitle {
+    font-size: 1rem;
+  }
+
+  .home-page__filters {
+    padding: 16px;
+  }
+}
+

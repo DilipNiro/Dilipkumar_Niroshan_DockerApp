@@ -1,0 +1,228 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.subtitle {
+  font-size: 1.1em;
+  opacity: 0.9;
+  margin: 0;
+}
+
+main {
+  padding: 30px;
+}
+
+.form-section,
+.users-section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  border-bottom: 3px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 500;
+}
+
+input[type='email'],
+input[type='text'] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+input[type='email']:focus,
+input[type='text']:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+.btn-edit {
+  background: #28a745;
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.9em;
+}
+
+.btn-edit:hover {
+  background: #218838;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.9em;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #667eea;
+  font-size: 1.2em;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+}
+
+.users-list {
+  display: grid;
+  gap: 15px;
+}
+
+.user-card {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.user-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-info h3 {
+  color: #333;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+
+.user-info p {
+  color: #666;
+  font-size: 0.95em;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.user-info .user-meta {
+  color: #999;
+  font-size: 0.85em;
+  margin-top: 5px;
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+footer {
+  background: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  border-top: 1px solid #dee2e6;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2em;
+  }
+
+  .user-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-actions {
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .user-actions button {
+    flex: 1;
+  }
+}
