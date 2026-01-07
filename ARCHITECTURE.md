@@ -7,13 +7,13 @@ Ce document présente l'architecture technique de l'application déployée avec 
 ## Architecture des Conteneurs
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         HÔTE (Docker Host)                                  │
-│                                                                               │
-│  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │                    RÉSEAU DOCKER (app-network)                        │  │
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                         HÔTE (Docker Host)                                   │
+│                                                                              │
+│  ┌────────────────────────────────────────────────────────────────────────┐  │  
+│  │                    RÉSEAU DOCKER (app-network)                         │  │
 │  │                         Driver: bridge                                 │  │
-│  │                                                                         │  │
+│  │                                                                        │  │
 │  │  ┌──────────────────┐      ┌──────────────────┐      ┌──────────────┐  │  │
 │  │  │   FRONTEND       │      │    BACKEND       │      │  POSTGRESQL  │  │  │
 │  │  │                  │      │                  │      │              │  │  │
@@ -37,23 +37,23 @@ Ce document présente l'architecture technique de l'application déployée avec 
 │  │         │                          │                          │        │  │
 │  │         │                          │                          │        │  │
 │  │         └──────────────────────────┴──────────────────────────┘        │  │
-│  │                          Réseau interne                                 │  │
-│  └─────────────────────────────────────────────────────────────────────────┘  │
-│                                                                               │
-│  ┌───────────────────────────────────────────────────────────────────────┐  │
-│  │                    VOLUME PERSISTANT                                  │  │
-│  │                                                                         │  │
-│  │  Volume: postgres_data                                                  │  │
-│  │  Driver: local                                                         │  │
-│  │  Mount: /var/lib/postgresql/data                                       │  │
-│  │  ┌─────────────────────────────────────────────────────────────────┐  │  │
-│  │  │  Données persistantes:                                           │  │  │
-│  │  │  - Tables (Users, Movies, Genres, WatchlistItems)               │  │  │
-│  │  │  - Indexes                                                       │  │  │
-│  │  │  - Migrations Prisma                                              │  │  │
-│  │  └─────────────────────────────────────────────────────────────────┘  │  │
-│  └───────────────────────────────────────────────────────────────────────┘  │
-└─────────────────────────────────────────────────────────────────────────────┘
+│  │                          Réseau interne                                │  │
+│  └────────────────────────────────────────────────────────────────────────┘  │
+│                                                                              │
+│  ┌───────────────────────────────────────────────────────────────────────┐   │
+│  │                    VOLUME PERSISTANT                                  │   │
+│  │                                                                       │   │
+│  │  Volume: postgres_data                                                │   │
+│  │  Driver: local                                                        │   │
+│  │  Mount: /var/lib/postgresql/data                                      │   │
+│  │  ┌─────────────────────────────────────────────────────────────────┐  │   │
+│  │  │  Données persistantes:                                          │  │   │
+│  │  │  - Tables (Users, Movies, Genres, WatchlistItems)               │  │   │
+│  │  │  - Indexes                                                      │  │   │
+│  │  │  - Migrations Prisma                                            │  │   │
+│  │  └─────────────────────────────────────────────────────────────────┘  │   │
+│  └───────────────────────────────────────────────────────────────────────┘   │
+└──────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Flux de données
@@ -91,7 +91,7 @@ Frontend (React App)
 │   (Express)     │
 │   Port: 3000    │
 │                 │
-│   Middleware:  │
+│   Middleware:   │
 │   - CORS        │
 │   - Auth (JWT)  │
 │   - Validation  │
@@ -122,99 +122,99 @@ Frontend (React State Update)
 
 ## Détails des services
 
-### Conteneur Frontend
+### Frontend Container
 
 ```
 ┌─────────────────────────────────────────┐
-│  Conteneur Frontend (nginx:alpine)     │
+│  Frontend Container (nginx:alpine)      │
 │                                         │
-│  ┌───────────────────────────────────┐ │
-│  │  Serveur Nginx                    │ │
-│  │  - Port: 80                       │ │
-│  │  - Config: nginx.conf             │ │
-│  │  - Utilisateur: nginx (non-root)  │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Nginx Server                     │  │
+│  │  - Port: 80                       │  │
+│  │  - Config: nginx.conf             │  │
+│  │  - User: nginx (non-root)         │  │
+│  └───────────────────────────────────┘  │
 │              │                          │
 │              ▼                          │
-│  ┌───────────────────────────────────┐ │
-│  │  Fichiers statiques               │ │
-│  │  /usr/share/nginx/html/           │ │
-│  │  - index.html                     │ │
-│  │  - assets/ (JS, CSS)              │ │
-│  │  - images/                        │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Static Files                     │  │
+│  │  /usr/share/nginx/html/           │  │
+│  │  - index.html                     │  │
+│  │  - assets/ (JS, CSS)              │  │
+│  │  - images/                        │  │
+│  └───────────────────────────────────┘  │ 
 │                                         │
-│  Processus de build:                    │
-│  1. npm ci (dépendances)                │
+│  Build Process:                         │
+│  1. npm ci (dependencies)               │
 │  2. npm run build (Vite)                │
-│  3. Copier dist/ vers nginx             │
+│  3. Copy dist/ to nginx                 │
 └─────────────────────────────────────────┘
 ```
 
-### Conteneur Backend
+### Backend Container
 
 ```
 ┌─────────────────────────────────────────┐
-│  Conteneur Backend (node:20-alpine)    │
+│  Backend Container (node:20-alpine)     │
 │                                         │
-│  ┌───────────────────────────────────┐ │
-│  │  Runtime Node.js                   │ │
-│  │  - Utilisateur: nodejs (uid: 1001) │ │
-│  │  - Point d'entrée: src/server.js   │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Node.js Runtime                  │  │ 
+│  │  - User: nodejs (uid: 1001)       │  │
+│  │  - Entry: src/server.js           │  │
+│  └───────────────────────────────────┘  │
 │              │                          │
 │              ▼                          │
-│  ┌───────────────────────────────────┐ │
-│  │  Application Express               │ │
-│  │  - Routes: /api/*                  │ │
-│  │  - Middleware: CORS, Auth, etc.    │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Express Application              │  │
+│  │  - Routes: /api/*                 │  │
+│  │  - Middleware: CORS, Auth, etc.   │  │
+│  └───────────────────────────────────┘  │
 │              │                          │
 │              ▼                          │
-│  ┌───────────────────────────────────┐ │
-│  │  Client Prisma                     │ │
-│  │  - Couche ORM                      │ │
-│  │  - Client généré                   │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Prisma Client                    │  │
+│  │  - ORM Layer                      │  │
+│  │  - Generated Client               │  │
+│  └───────────────────────────────────┘  │
 │              │                          │
 │              ▼                          │
-│  ┌───────────────────────────────────┐ │
-│  │  Connexion base de données         │ │
-│  │  - PostgreSQL                      │ │
-│  │  - Pool de connexions              │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Database Connection              │  │
+│  │  - PostgreSQL                     │  │
+│  │  - Connection Pool                │  │
+│  └───────────────────────────────────┘  │
 │                                         │
-│  Processus de build:                    │
-│  1. npm ci (dépendances production)     │
+│  Build Process:                         │
+│  1. npm ci (production deps)            │
 │  2. npx prisma generate                 │
-│  3. Copier les fichiers sources         │
-│  4. Exécuter les migrations au démarrage│
+│  3. Copy source files                   │
+│  4. Run migrations on startup           │
 └─────────────────────────────────────────┘
 ```
 
-### Conteneur PostgreSQL
+### PostgreSQL Container
 
 ```
 ┌─────────────────────────────────────────┐
-│  Conteneur PostgreSQL (postgres:13)    │
+│  PostgreSQL Container (postgres:13)     │
 │                                         │
-│  ┌───────────────────────────────────┐ │
-│  │  Serveur PostgreSQL                │ │
-│  │  - Port: 5432                      │ │
-│  │  - Utilisateur: postgres           │ │
-│  │  - Base de données: myapp          │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  PostgreSQL Server                │  │
+│  │  - Port: 5432                     │  │
+│  │  - User: postgres                 │  │
+│  │  - Database: myapp                │  │
+│  └───────────────────────────────────┘  │
 │              │                          │
 │              ▼                          │
-│  ┌───────────────────────────────────┐ │
-│  │  Répertoire de données             │ │
-│  │  /var/lib/postgresql/data          │ │
-│  │  (Monté depuis le volume)          │ │
-│  └───────────────────────────────────┘ │
+│  ┌───────────────────────────────────┐  │
+│  │  Data Directory                   │  │
+│  │  /var/lib/postgresql/data         │  │
+│  │  (Mounted from volume)            │  │
+│  └───────────────────────────────────┘  │
 │                                         │
 │  Volume: postgres_data                  │
-│  - Persiste lors des redémarrages       │
-│  - Survit à la suppression du conteneur │
+│  - Persists across container restarts   │
+│  - Survives container deletion          │
 └─────────────────────────────────────────┘
 ```
 
@@ -280,21 +280,21 @@ Frontend (React State Update)
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                  Hôte (Machine Hôte)                    │
+│                    Hôte (Host Machine)                  │
 │                                                         │
-│  Port 80   ──────────────┐                             │
-│                          │                             │
-│  Port 3000 ──────────────┼──────┐                      │
-│                          │      │                      │
-│  Port 5432 ──────────────┼──────┼──────┐               │
-│                          │      │      │               │
-│                          ▼      ▼      ▼               │
-│  ┌──────────────┐  ┌──────────┐  ┌──────────┐         │
-│  │  Frontend    │  │ Backend  │  │ Postgres │         │
-│  │  :80         │  │ :3000    │  │ :5432    │         │
-│  └──────────────┘  └──────────┘  └──────────┘         │
+│  Port 80  ───┐                                          │
+│              │                                          │
+│  Port 3000 ──┼─────────┐                                │
+│              │         │                                │
+│  Port 5432 ──┼─────────┼─────────────┐                  │
+│              │         │             │                  │
+│              ▼         ▼             ▼                  │
+│   ┌─────────────┐  ┌──────────┐  ┌──────────┐           │
+│   │  Frontend   │  │ Backend  │  │ Postgres │           │
+│   │  :80        │  │ :3000    │  │ :5432    │           │
+│   └─────────────┘  └──────────┘  └──────────┘           │
 │                                                         │
-│  Note: Les ports peuvent être personnalisés via .env   │
+│  Note: Les ports peuvent être personnalisés via .env    │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -302,27 +302,27 @@ Frontend (React State Update)
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    Isolation des Services                │
-│                                                           │
-│  ┌──────────────┐                                        │
-│  │   Frontend   │  User: nginx (non-root)                │
-│  │              │  Network: app-network                  │
-│  │              │  Read-only: false                      │
-│  └──────────────┘                                        │
-│                                                           │
-│  ┌──────────────┐                                        │
+│                    Isolation des Services               │
+│                                                         │
+│  ┌──────────────┐                                       │
+│  │   Frontend   │  User: nginx (non-root)               │
+│  │              │  Network: app-network                 │
+│  │              │  Read-only: false                     │
+│  └──────────────┘                                       │
+│                                                         │
+│  ┌──────────────┐                                       │
 │  │   Backend    │  User: nodejs (uid: 1001, non-root)   │
 │  │              │  Network: app-network                 │
-│  │              │  Read-only: false                      │
-│  └──────────────┘                                        │
-│                                                           │
-│  ┌──────────────┐                                        │
+│  │              │  Read-only: false                     │
+│  └──────────────┘                                       │
+│                                                         │
+│  ┌──────────────┐                                       │
 │  │  PostgreSQL  │  User: postgres                       │
 │  │              │  Network: app-network                 │
-│  │              │  Volume: postgres_data (persistent)    │
-│  └──────────────┘                                        │
-│                                                           │
-│  Communication:                                          │
+│  │              │  Volume: postgres_data (persistent)   │
+│  └──────────────┘                                       │
+│                                                         │
+│  Communication:                                         │
 │  - Frontend ↔ Backend: HTTP (port 3000)                 │
 │  - Backend ↔ PostgreSQL: PostgreSQL protocol (port 5432)│
 │  - Pas d'accès direct Frontend → PostgreSQL             │
@@ -333,9 +333,9 @@ Frontend (React State Update)
 
 ```
 1. Démarrage
-   ┌─────────────┐
+   ┌───────────────────┐
    │ docker-compose up │
-   └──────┬──────┘
+   └──────┬────────────┘
           │
           ├─► Build images (si nécessaire)
           ├─► Create network (app-network)
@@ -350,9 +350,9 @@ Frontend (React State Update)
    User → Frontend → Backend → PostgreSQL → Backend → Frontend → User
 
 3. Arrêt
-   ┌─────────────┐
+   ┌─────────────────────┐
    │ docker-compose down │
-   └──────┬──────┘
+   └──────┬──────────────┘
           │
           ├─► Stop Frontend
           ├─► Stop Backend
@@ -360,9 +360,9 @@ Frontend (React State Update)
           └─► Volume postgres_data PERSISTE (données sauvegardées)
 
 4. Redémarrage
-   ┌─────────────┐
+   ┌───────────────────┐
    │ docker-compose up │
-   └──────┬──────┘
+   └──────┬────────────┘
           │
           └─► Volume postgres_data est réutilisé
               └─► Données toujours présentes
@@ -384,6 +384,4 @@ Frontend (React State Update)
 
 ---
 
-**Document créé le** : 2024  
-**Version** : 1.0
 
